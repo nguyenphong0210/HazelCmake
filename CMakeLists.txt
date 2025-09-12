@@ -19,6 +19,7 @@ target_sources(Hazel PRIVATE ${HAZEL_HEADERS} ${HAZEL_SOURCES})
 
 target_include_directories(Hazel PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include
 )
 
 target_compile_features(Hazel PUBLIC cxx_std_17)
