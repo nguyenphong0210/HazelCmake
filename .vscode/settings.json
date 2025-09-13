@@ -1,0 +1,11 @@
+{
+    "terminal.integrated.profiles": {
+        "Git Bash": {
+            "path": "C:\\Program Files\\Git\\bin\\bash.exe"
+        }                       
+    },
+
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "cmake.parallelJobs": 8
+
+}
