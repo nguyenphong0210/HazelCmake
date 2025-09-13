@@ -8,6 +8,11 @@ set(CMAKE_GENERATOR_PLATFORM x64)
 # Set build configuration to Release by default
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
+# -- Include directories relative to root folder (solution directory)--
+set(GLFW_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/GLFW/include)
+
+add_subdirectory(Hazel/vendor/GLFW)
+
 # --------------------------------- Hazel ---------------------------------
 add_library(Hazel SHARED
     Hazel/src/Hazel.h
@@ -24,7 +29,10 @@ target_sources(Hazel PRIVATE ${HAZEL_HEADERS} ${HAZEL_SOURCES})
 target_include_directories(Hazel PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include
+    ${GLFW_DIRS}
 )
+
+target_link_libraries(Hazel PRIVATE glfw opengl32.lib)
 
 target_compile_features(Hazel PUBLIC cxx_std_17)
 
