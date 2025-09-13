@@ -13,6 +13,10 @@ add_library(Hazel SHARED
     Hazel/src/Hazel.h
 )
 
+target_precompile_headers(Hazel PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src/hzpch.h"
+)
+
 file(GLOB_RECURSE HAZEL_HEADERS "Hazel/src/*.h")
 file(GLOB_RECURSE HAZEL_SOURCES "Hazel/src/*.cpp")
 target_sources(Hazel PRIVATE ${HAZEL_HEADERS} ${HAZEL_SOURCES})
