@@ -3,7 +3,9 @@ cmake_minimum_required(VERSION 3.16)
 project(HazelWorkspace LANGUAGES CXX)
 
 # Set build platform to 64-bit
-set(CMAKE_GENERATOR_PLATFORM x64)
+if(MSVC)
+    set(CMAKE_GENERATOR_PLATFORM x64)
+endif()
 
 # Set build configuration to Release by default
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
