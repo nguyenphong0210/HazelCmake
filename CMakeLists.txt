@@ -13,9 +13,11 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 # -- Include directories relative to root folder (solution directory)--
 set(GLFW_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/GLFW/include)
 set(Glad_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/Glad/include)
+set(ImGui_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/imgui)
 
 add_subdirectory(Hazel/vendor/GLFW)
 add_subdirectory(Hazel/vendor/Glad)
+add_subdirectory(Hazel/vendor/imgui)
 
 # --------------------------------- Hazel ---------------------------------
 add_library(Hazel SHARED
@@ -35,9 +37,10 @@ target_include_directories(Hazel PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include
     ${GLFW_DIRS}
     ${Glad_DIRS}
+    ${ImGui_DIRS}
 )
 
-target_link_libraries(Hazel PRIVATE glfw Glad opengl32.lib)
+target_link_libraries(Hazel PRIVATE glfw Glad ImGui opengl32.lib)
 
 target_compile_features(Hazel PUBLIC cxx_std_17)
 
