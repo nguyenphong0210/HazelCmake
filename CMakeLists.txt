@@ -12,8 +12,10 @@ set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # -- Include directories relative to root folder (solution directory)--
 set(GLFW_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/GLFW/include)
+set(Glad_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/Glad/include)
 
 add_subdirectory(Hazel/vendor/GLFW)
+add_subdirectory(Hazel/vendor/Glad)
 
 # --------------------------------- Hazel ---------------------------------
 add_library(Hazel SHARED
@@ -32,22 +34,23 @@ target_include_directories(Hazel PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/spdlog/include
     ${GLFW_DIRS}
+    ${Glad_DIRS}
 )
 
-target_link_libraries(Hazel PRIVATE glfw opengl32.lib)
+target_link_libraries(Hazel PRIVATE glfw Glad opengl32.lib)
 
 target_compile_features(Hazel PUBLIC cxx_std_17)
 
 if(MSVC)
-    target_compile_definitions(Hazel PRIVATE HZ_PLATFORM_WINDOWS HZ_BUILD_DLL)
+    target_compile_definitions(Hazel PRIVATE HZ_PLATFORM_WINDOWS HZ_BUILD_DLL GLFW_INCLUDE_NONE)
     # static runtime (/MT(d)) instead of dynamic (/MD(d))
     foreach(flag_var CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE 
                      CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE)
         string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
     endforeach()
 elseif (MINGW)
-    target_compile_definitions(Hazel PRIVATE HZ_PLATFORM_WINDOWS HZ_BUILD_DLL)
-    # MinGW không có /MD hay /MT, nhưng bạn có thể chọn static linking libgcc/libstdc++
+    target_compile_definitions(Hazel PRIVATE HZ_PLATFORM_WINDOWS HZ_BUILD_DLL GLFW_INCLUDE_NONE)
+    # MinGW do not have /MD or /MT options, but you can choose static linking for libgcc/libstdc++
     target_compile_options(Hazel PRIVATE -static -static-libgcc -static-libstdc++)
 endif()
 
