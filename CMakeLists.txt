@@ -10,6 +10,11 @@ endif()
 # Set build configuration to Release by default
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
+# Thiết lập global output folder cho tất cả target
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
+
 # -- Include directories relative to root folder (solution directory)--
 set(GLFW_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/GLFW/include)
 set(Glad_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/Glad/include)
