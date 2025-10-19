@@ -75,6 +75,7 @@ target_sources(Sandbox PRIVATE ${SANDBOX_HEADERS} ${SANDBOX_SOURCES})
 target_include_directories(Sandbox PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor
     ${Glm_DIRS}
 )
 
