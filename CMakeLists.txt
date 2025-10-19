@@ -19,10 +19,12 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output)
 set(GLFW_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/GLFW/include)
 set(Glad_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/Glad/include)
 set(ImGui_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/imgui)
+set(Glm_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/vendor/glm)
 
 add_subdirectory(Hazel/vendor/GLFW)
 add_subdirectory(Hazel/vendor/Glad)
 add_subdirectory(Hazel/vendor/imgui)
+add_subdirectory(Hazel/vendor/glm)
 
 # --------------------------------- Hazel ---------------------------------
 add_library(Hazel SHARED
@@ -43,6 +45,7 @@ target_include_directories(Hazel PUBLIC
     ${GLFW_DIRS}
     ${Glad_DIRS}
     ${ImGui_DIRS}
+    ${Glm_DIRS}
 )
 
 target_link_libraries(Hazel PRIVATE glfw Glad ImGui opengl32.lib)
@@ -70,7 +73,9 @@ file(GLOB_RECURSE SANDBOX_SOURCES "Sandbox/src/*.cpp")
 target_sources(Sandbox PRIVATE ${SANDBOX_HEADERS} ${SANDBOX_SOURCES})
 
 target_include_directories(Sandbox PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_CURRENT_SOURCE_DIR}/Hazel/src
+    ${Glm_DIRS}
 )
 
 target_link_libraries(Sandbox PRIVATE Hazel)
