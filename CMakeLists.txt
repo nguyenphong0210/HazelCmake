@@ -27,7 +27,7 @@ add_subdirectory(Hazel/vendor/imgui)
 add_subdirectory(Hazel/vendor/glm)
 
 # --------------------------------- Hazel ---------------------------------
-add_library(Hazel SHARED
+add_library(Hazel STATIC
     Hazel/src/Hazel.h
 )
 

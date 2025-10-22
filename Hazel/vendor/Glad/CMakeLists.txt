@@ -18,17 +18,12 @@ set_target_properties(Glad PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}/Glad"
 )
 
-# If building on Windows
-if (WIN32)
-    # systemversion "latest" ~ latest toolset
-    set(CMAKE_SYSTEM_VERSION 10.0)  # or leave default, depending on toolset
+if(MSVC)
+    set_property(TARGET Glad PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 endif()
 
-# staticruntime "On" + /MT for MSVC
-if (MSVC)
-    foreach(flag_var CMAKE_C_FLAGS_RELEASE CMAKE_CXX_FLAGS_RELEASE)
-        string(REPLACE "/MD" "/MT" ${flag_var} "${${flag_var}}")
-    endforeach()
-elseif (MINGW)
-    target_compile_options(Glad PRIVATE -static -static-libgcc -static-libstdc++)
-endif()
+#  Configurations Debug/Release
+target_compile_definitions(Glad PRIVATE
+    $<$<CONFIG:Debug>:HZ_DEBUG>
+    $<$<CONFIG:Release>:HZ_RELEASE>
+)
